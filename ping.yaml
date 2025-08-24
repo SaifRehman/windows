@@ -1,0 +1,7 @@
+---
+- name: Test connectivity to Windows VM via WinRM
+  hosts: default-windows-11-virtio-cyan-spoonbill-12
+  gather_facts: no
+  tasks:
+    - name: Ping the Windows host
+      win_ping:
