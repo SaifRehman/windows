@@ -19,23 +19,27 @@
         level: machine
 
     - name: Refresh PATH to include Chocolatey
-      ansible.windows.win_powershell: |
-        $env:Path += ";C:\ProgramData\chocolatey\bin"
+      ansible.windows.win_powershell: 
+        script: |
+          $env:Path += ";C:\ProgramData\chocolatey\bin"
 
     - name: Install .NET SDK using Chocolatey
-      win_powershell: |
-        choco install dotnet-sdk -y --no-progress
+      win_powershell: 
+        script: |
+          choco install dotnet-sdk -y --no-progress
       # args:
       #   chdir: C:\
 
     - name: Install Visual Studio Build Tools
-      win_powershell: choco install visualstudio2022buildtools -y --no-progress
+      win_powershell: 
+        script: |
+          choco install visualstudio2022buildtools -y --no-progress
       # args:
       #   chdir: C:\
 
-    - name: Verify .NET installation
-      win_powershell: dotnet --version
-      register: dotnet_version
+    # - name: Verify .NET installation
+    #   win_powershell: dotnet --version
+    #   register: dotnet_version
 
-    - debug:
-        msg: "Installed .NET version is {{ dotnet_version.stdout }}"
+    # - debug:
+    #     msg: "Installed .NET version is {{ dotnet_version.stdout }}"
