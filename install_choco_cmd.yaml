@@ -1,0 +1,37 @@
+---
+- name: Prepare Windows build environment without win_chocolatey
+  hosts: default-windows-11-virtio-copper-mongoose-72
+  gather_facts: no
+
+  tasks:
+    - name: Install Chocolatey (if not installed)
+      win_shell: |
+        if (!(Test-Path "$env:ProgramData\chocolatey")) {
+          Set-ExecutionPolicy Bypass -Scope Process -Force
+          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+          iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+        }
+
+    - name: Ensure Chocolatey in PATH
+      win_environment:
+        state: present
+        name: PATH
+        value: C:\ProgramData\chocolatey\bin
+        level: machine
+
+    - name: Install .NET SDK
+      win_shell: choco install dotnet-sdk -y --no-progress
+      args:
+        chdir: C:\
+
+    - name: Install Visual Studio Build Tools
+      win_shell: choco install visualstudio2022buildtools -y --no-progress
+      args:
+        chdir: C:\
+
+    - name: Verify .NET installation
+      win_shell: dotnet --version
+      register: dotnet_version
+
+    - debug:
+        msg: "Installed .NET version is {{ dotnet_version.stdout }}"
