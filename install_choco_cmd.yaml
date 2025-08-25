@@ -24,13 +24,13 @@
     - name: Install .NET SDK using Chocolatey
       win_powershell: |
         choco install dotnet-sdk -y --no-progress
-      args:
-        chdir: C:\
+      # args:
+      #   chdir: C:\
 
     - name: Install Visual Studio Build Tools
       win_powershell: choco install visualstudio2022buildtools -y --no-progress
-      args:
-        chdir: C:\
+      # args:
+      #   chdir: C:\
 
     - name: Verify .NET installation
       win_powershell: dotnet --version
