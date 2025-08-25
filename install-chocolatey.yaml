@@ -1,8 +1,8 @@
 ---
 - name: "choco"
-  # collections:
-  #   - name: community.windows
-  #   - name: chocolatey.chocolatey
+  collections:
+    - community.windows
+    - chocolatey.chocolatey
   hosts: localhost
   tasks:
     - name: Ensure the chocolatey.chocolatey collection is installed (run this on your Ansible control machine)
