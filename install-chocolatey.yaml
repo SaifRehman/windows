@@ -1,0 +1,19 @@
+---
+collections:
+  - name: community.windows
+  - name: chocolatey.chocolatey
+- name: Install Chocolatey and a package
+  hosts: localhost
+  tasks:
+    - name: Ensure the chocolatey.chocolatey collection is installed (run this on your Ansible control machine)
+      ansible.builtin.command: "ansible-galaxy collection install chocolatey.chocolatey"
+
+    - name: Ensure Chocolatey is installed
+      chocolatey.chocolatey.win_chocolatey:
+        name: chocolatey
+        state: present
+
+    - name: Install a package (e.g., git) using Chocolatey
+      chocolatey.chocolatey.win_chocolatey:
+        name: git.install
+        state: present
