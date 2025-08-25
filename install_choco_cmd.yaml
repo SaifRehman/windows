@@ -11,31 +11,31 @@
           [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
           iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
-    # - name: Ensure Chocolatey in PATH
-    #   win_environment:
-    #     state: present
-    #     name: PATH
-    #     value: C:\ProgramData\chocolatey\bin
-    #     level: machine
+    - name: Ensure Chocolatey in PATH
+      win_environment:
+        state: present
+        name: PATH
+        value: C:\ProgramData\chocolatey\bin
+        level: machine
 
-    # - name: Refresh PATH to include Chocolatey
-    #   win_powershell: |
-    #     $env:Path += ";C:\ProgramData\chocolatey\bin"
+    - name: Refresh PATH to include Chocolatey
+      ansible.windows.win_powershell: |
+        $env:Path += ";C:\ProgramData\chocolatey\bin"
 
-    # - name: Install .NET SDK using Chocolatey
-    #   win_powershell: |
-    #     choco install dotnet-sdk -y --no-progress
-    #   # args:
-    #   #   chdir: C:\
+    - name: Install .NET SDK using Chocolatey
+      win_powershell: |
+        choco install dotnet-sdk -y --no-progress
+      # args:
+      #   chdir: C:\
 
-    # - name: Install Visual Studio Build Tools
-    #   win_powershell: choco install visualstudio2022buildtools -y --no-progress
-    #   # args:
-    #   #   chdir: C:\
+    - name: Install Visual Studio Build Tools
+      win_powershell: choco install visualstudio2022buildtools -y --no-progress
+      # args:
+      #   chdir: C:\
 
-    # - name: Verify .NET installation
-    #   win_powershell: dotnet --version
-    #   register: dotnet_version
+    - name: Verify .NET installation
+      win_powershell: dotnet --version
+      register: dotnet_version
 
-    # - debug:
-    #     msg: "Installed .NET version is {{ dotnet_version.stdout }}"
+    - debug:
+        msg: "Installed .NET version is {{ dotnet_version.stdout }}"
