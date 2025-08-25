@@ -34,6 +34,10 @@
       ansible.windows.win_powershell: 
         script: |
           choco install visualstudio2022buildtools -y --no-progress
+    - name: Install Git
+      ansible.windows.win_powershell:
+        script: |
+          choco install git -y --no-progress
       # args:
       #   chdir: C:\
 
